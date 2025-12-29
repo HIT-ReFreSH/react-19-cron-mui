@@ -1,17 +1,17 @@
-## ReactJS Cron
-> This package is based on Xavier Rutayisire package (https://github.com/xrutayisire/react-js-cron). Most if not all of the credit should go to him.
-> A React cron editor built with [Material-UI](https://www.npmjs.com/package/@material-ui/core)
+## React 19 Cron MUI
+> This package is based on Itay Levy (https://github.com/levyitay/)'s react-js-cron-mui fork and the original Xavier Rutayisire package (https://github.com/xrutayisire/react-js-cron). Most if not all of the credit should go to them.
+> A React cron editor built with MUI v6.
 
-[![npm package](https://img.shields.io/npm/v/react-js-cron-mui/latest.svg)](https://www.npmjs.com/package/react-js-cron-mui)
-[![MIT License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/levyitay/react-js-cron-mui/blob/master/LICENSE.md)
+[![npm package](https://img.shields.io/npm/v/react-19-cron-mui/latest.svg)](https://www.npmjs.com/package/react-19-cron-mui)
+[![MIT License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/HIT-ReFreSH/react-19-cron-mui/blob/main/LICENSE.md)
 
-Live **demo** and **usage** at [https://levyitay.github.io/react-js-cron/](https://levyitay.github.io/react-js-cron-mui/?path=/docs/reactjs-cron--demo)
+Live **demo** and **usage** (upstream): https://levyitay.github.io/react-js-cron-mui/?path=/docs/reactjs-cron--demo
 
-![react-js-cron example](https://raw.githubusercontent.com/levyitay/react-js-cron-mui/master/react-js-cron-example.png)
+![react-js-cron example](./react-js-cron-example.png)
 
 ## Features
 
-- Zero dependencies except React and Material-UI
+- Zero dependencies except React and MUI (and Emotion for MUI)
 - Supports all standard cron expressions
 - Supports cron names for months and week days
 - Supports cron shortcuts
@@ -29,25 +29,27 @@ Live **demo** and **usage** at [https://levyitay.github.io/react-js-cron/](https
 ## Installation
 
 Be sure that you have these dependencies on your project:
-* react (>=16.8.0)
-* material-ui (>=4.0.0)
-* fontsource-roboto
+* react (>=19.0.0)
+* react-dom (>=19.0.0)
+* @mui/material (>=6.4.4)
+* @emotion/react (>=11.14.0)
+* @emotion/styled (>=11.14.0)
 
 ```bash
 # Yarn
-yarn add react-js-cron-mui
+yarn add react-19-cron-mui
 
 # NPM
-npm install --save react-js-cron-mui
+npm install --save react-19-cron-mui
 ```
 
 ## TypeScript
 
-react-js-cron is written in TypeScript with complete definitions
+react-19-cron-mui is written in TypeScript with complete definitions
 
 ## Usage
 
-Learn more with [dynamic settings](https://levyitay.github.io/react-js-cron-mui/?path=/story/reactjs-cron--dynamic-settings).
+Learn more with [dynamic settings](https://levyitay.github.io/react-js-cron-mui/?path=/story/reactjs-cron--dynamic-settings) (upstream).
 
 - [Two-way sync binding with input](https://levyitay.github.io/react-js-cron-mui/?path=/story/reactjs-cron--input)
 - [Default value](https://levyitay.github.io/react-js-cron-mui/?path=/story/reactjs-cron--default-value)
@@ -281,5 +283,4 @@ CronProps {
 
 ## License
 
-MIT © [levyitay](https://github.com/levyitay)
-  
+MIT. See [LICENSE.md](./LICENSE.md).

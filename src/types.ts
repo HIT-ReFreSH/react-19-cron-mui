@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
-import {ButtonProps,SelectProps} from '@material-ui/core'
+import {ButtonProps,SelectProps} from '@mui/material'
 // External props
 
 export interface CronProps {
@@ -315,6 +315,7 @@ export interface CustomSelectProps
   clockFormat?: ClockFormat
   period: PeriodType
   unit: Unit
+  placeholder?: string
 }
 export type SetValueNumbersOrUndefined = Dispatch<
   SetStateAction<number[] | undefined>
