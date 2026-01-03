@@ -1,34 +1,34 @@
-import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
-  TextField,
-  Table,
-  Radio,
-  Switch,
   Button,
+  Checkbox,
+  FormControl,
   FormControlLabel,
-  RadioGroup,
   FormGroup,
   Input,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  Switch,
+  Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Typography,
+  TextField,
   TextFieldProps,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Checkbox,
-  ListItemText,
+  Typography,
 } from '@mui/material'
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from '@mui/icons-material/Info'
 import DividerWithText from '../components/DividerWithText'
 
-import Cron, { CronError, AllowEmpty, ClockFormat, PeriodType } from '../index'
+import Cron, { AllowEmpty, ClockFormat, CronError, PeriodType } from '../index'
 import {
-  FRENCH_LOCALE,
   ENGLISH_VARIANT_LOCALE,
+  FRENCH_LOCALE,
   NO_PREFIX_SUFFIX_LOCALE,
 } from './constants.stories'
 import { ClearButtonAction } from '../types'
@@ -43,14 +43,14 @@ export default {
 
 export function Demo() {
   // const textFieldType = typeof TextField;
-  const inputRef = useRef<TextFieldProps>()
+  const inputRef = useRef<TextFieldProps>(null)
   const defaultValue = '30 5 * * 1,6'
   const [value, setValue] = useState(defaultValue)
-  const [textValue, setTextValue] = useState('');
+  const [textValue, setTextValue] = useState('')
   const customSetValue = useCallback(
     (newValue: string) => {
       setValue(newValue)
-      setTextValue(newValue);
+      setTextValue(newValue)
     },
     [setTextValue]
   )
@@ -64,14 +64,14 @@ export function Demo() {
         onBlur={(event) => {
           setValue(event.target.value)
         }}
-        // 
+        //
         onChange={(event: any) => {
           customSetValue(event.target.value)
         }}
-      // on
-      // onPressEnter={() => {
-      //   setValue(inputRef.current?.input.value || '')
-      // }}
+        // on
+        // onPressEnter={() => {
+        //   setValue(inputRef.current?.input.value || '')
+        // }}
       />
 
       <DividerWithText>OR</DividerWithText>
@@ -109,7 +109,9 @@ export function DynamicSettings() {
   const [supportShortcuts, setSupportShortcuts] = useState<boolean>(true)
   const [removePrefixSuffix, setRemovePrefixSuffix] = useState<boolean>(false)
   const [customStyle, setCustomStyle] = useState<boolean>(false)
-  const [allowEmpty, setAllowEmpty] = useState<AllowEmpty | string>('for-default-value')
+  const [allowEmpty, setAllowEmpty] = useState<AllowEmpty | string>(
+    'for-default-value'
+  )
   const [clockFormat, setClockFormat] = useState<ClockFormat | '' | string>('')
   const [locale, setLocale] = useState<
     'english' | 'french' | 'english-variant' | string
@@ -118,19 +120,18 @@ export function DynamicSettings() {
   const [defaultValue, setDefaultValue] = useState('@daily')
   const [leadingZero, setLeadingZero] = useState<boolean>(false)
   const [key, setKey] = useState('render')
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
     (newValue: string) => {
       inputRef.current = newValue
-
     },
     [inputRef]
   )
   const [error, onError] = useState<CronError>()
-  const [clearButtonAction, setClearButtonAction] = useState<ClearButtonAction | string>(
-    'fill-with-every'
-  )
+  const [clearButtonAction, setClearButtonAction] = useState<
+    ClearButtonAction | string
+  >('fill-with-every')
 
   const transformedLocale = useMemo(() => {
     let newLocale
@@ -162,7 +163,6 @@ export function DynamicSettings() {
     () => {
       if (displayInput && value !== null) {
         //  inputRef.current = value;
-
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -172,163 +172,280 @@ export function DynamicSettings() {
   return (
     <div>
       <FormGroup row className='demo-dynamic-settings'>
-        <FormControlLabel label='Display input' control={
-          <Switch
-            checked={displayInput}
-            onChange={() => setDisplayInput((prevValue) => !prevValue)}
-          />
-        } />
+        <FormControlLabel
+          label='Display input'
+          control={
+            <Switch
+              checked={displayInput}
+              onChange={() => setDisplayInput((prevValue) => !prevValue)}
+            />
+          }
+        />
 
-        <FormControlLabel label='Change input value on blur' control={
-          <Switch
-            checked={changeValueonChange}
-            onChange={() => setChangeValueonChange((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Change input value on enter' control={
-          <Switch
-            checked={changeValueOnEnter}
-            onChange={() => setChangeValueOnEnter((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Read-Only input' control={
-          <Switch
-            checked={readOnlyInput}
-            onChange={() => setReadOnlyInput((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Disabled' control={
-          <Switch
-            checked={disabled}
-            onChange={() => setDisabled((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Read-Only' control={
-          <Switch
-            checked={readOnly}
-            onChange={() => setReadOnly((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Humanize labels' control={
-          <Switch
-            checked={humanizeLabels}
-            onChange={() => setHumanizeLabels((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Humanize value' control={
-          <Switch
-            checked={humanizeValue}
-            onChange={() => setHumanizeValue((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Use cron intervals' control={
-          <Switch
-            checked={useCronIntervals}
-            onChange={() => setUseCronIntervals((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Display error text' control={
-          <Switch
-            checked={displayErrorText}
-            onChange={() => setDisplayErrorText((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Display error style' control={
-          <Switch
-            checked={displayErrorStyle}
-            onChange={() => setDisplayErrorStyle((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Display clear button' control={
-          <Switch
-            checked={displayClearButton}
-            onChange={() => setDisplayClearButton((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Support shortcuts' control={
-          <Switch
-            checked={supportShortcuts}
-            onChange={() => setSupportShortcuts((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Remove prefix/suffix' control={
-          <Switch
-            checked={removePrefixSuffix}
-            onChange={() => setRemovePrefixSuffix((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Set custom style' control={
-          <Switch
-            checked={customStyle}
-            onChange={() => setCustomStyle((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Leading zero' control={
-          <Switch
-            checked={leadingZero}
-            onChange={() => setLeadingZero((prevValue) => !prevValue)}
-          />
-        } />
-        <FormControlLabel label='Clock format' control={
-          <RadioGroup
-            value={clockFormat}
-            onChange={(e) => setClockFormat(e.target.value)}
-          >
-            <FormControlLabel control={<Radio />} value='' label='None' />
-            <FormControlLabel control={<Radio />} value='12-hour-clock' label='12-hour clock' />
-            <FormControlLabel control={<Radio />} value='24-hour-clock' label='24-hour-clock' />
-          </RadioGroup>
-        } />
-        <FormControlLabel label='Locale' control={
-          <RadioGroup
-            value={locale}
-            onChange={(e) => setLocale(e.target.value)}
-          >
-            <FormControlLabel control={<Radio />} value='english' label='English' />
-            <FormControlLabel control={<Radio />} value='french' label='French' />
-            <FormControlLabel control={<Radio />} value='english-variant' label='English variant' />
-          </RadioGroup>
-        } />
-        <FormControlLabel label='Clear button action' control={
-          <RadioGroup
-            value={clearButtonAction}
-            onChange={(e) => setClearButtonAction(e.target.value)}
-          >
-            <FormControlLabel control={<Radio />} value='empty' label='Empty' />
-            <FormControlLabel control={<Radio />} value='fill-with-every' label='Fill with every' />
-          </RadioGroup>
-        } />
-        <FormControlLabel label='Empty value management *' control={
-          <RadioGroup
-            value={allowEmpty}
-            onChange={(e) => setAllowEmpty(e.target.value)}
-          >
-            <FormControlLabel control={<Radio />} value='for-default-value' label='For default value'></FormControlLabel>
-            <FormControlLabel control={<Radio />} value='always' label='Always' />
-            <FormControlLabel control={<Radio />} value='never' label='Never' />
-          </RadioGroup>
-        } />
-        <FormControlLabel label='Default value *' control={
-          <Input
-
-            value={defaultValue}
-            onChange={(e: any) => setDefaultValue(e.target.value)}
-          />
-        } />
-        <FormControlLabel label='Default period **' control={
-          <RadioGroup
-            value={defaultPeriod}
-            onChange={(e) => setDefaultPeriod(e.target.value)}
-          >
-            <FormControlLabel control={<Radio />} value='year' label='Year' />
-            <FormControlLabel control={<Radio />} value='month' label='Month' />
-            <FormControlLabel control={<Radio />} value='week' label='Week' />
-            <FormControlLabel control={<Radio />} value='day' label='Day' />
-            <FormControlLabel control={<Radio />} value='hour' label='Hour' />
-            <FormControlLabel control={<Radio />} value='minute' label='Minute' />
-            <FormControlLabel control={<Radio />} value='reboot' label='Reboot' />
-          </RadioGroup>
-        } />
+        <FormControlLabel
+          label='Change input value on blur'
+          control={
+            <Switch
+              checked={changeValueonChange}
+              onChange={() => setChangeValueonChange((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Change input value on enter'
+          control={
+            <Switch
+              checked={changeValueOnEnter}
+              onChange={() => setChangeValueOnEnter((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Read-Only input'
+          control={
+            <Switch
+              checked={readOnlyInput}
+              onChange={() => setReadOnlyInput((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Disabled'
+          control={
+            <Switch
+              checked={disabled}
+              onChange={() => setDisabled((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Read-Only'
+          control={
+            <Switch
+              checked={readOnly}
+              onChange={() => setReadOnly((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Humanize labels'
+          control={
+            <Switch
+              checked={humanizeLabels}
+              onChange={() => setHumanizeLabels((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Humanize value'
+          control={
+            <Switch
+              checked={humanizeValue}
+              onChange={() => setHumanizeValue((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Use cron intervals'
+          control={
+            <Switch
+              checked={useCronIntervals}
+              onChange={() => setUseCronIntervals((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Display error text'
+          control={
+            <Switch
+              checked={displayErrorText}
+              onChange={() => setDisplayErrorText((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Display error style'
+          control={
+            <Switch
+              checked={displayErrorStyle}
+              onChange={() => setDisplayErrorStyle((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Display clear button'
+          control={
+            <Switch
+              checked={displayClearButton}
+              onChange={() => setDisplayClearButton((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Support shortcuts'
+          control={
+            <Switch
+              checked={supportShortcuts}
+              onChange={() => setSupportShortcuts((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Remove prefix/suffix'
+          control={
+            <Switch
+              checked={removePrefixSuffix}
+              onChange={() => setRemovePrefixSuffix((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Set custom style'
+          control={
+            <Switch
+              checked={customStyle}
+              onChange={() => setCustomStyle((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Leading zero'
+          control={
+            <Switch
+              checked={leadingZero}
+              onChange={() => setLeadingZero((prevValue) => !prevValue)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Clock format'
+          control={
+            <RadioGroup
+              value={clockFormat}
+              onChange={(e) => setClockFormat(e.target.value)}
+            >
+              <FormControlLabel control={<Radio />} value='' label='None' />
+              <FormControlLabel
+                control={<Radio />}
+                value='12-hour-clock'
+                label='12-hour clock'
+              />
+              <FormControlLabel
+                control={<Radio />}
+                value='24-hour-clock'
+                label='24-hour-clock'
+              />
+            </RadioGroup>
+          }
+        />
+        <FormControlLabel
+          label='Locale'
+          control={
+            <RadioGroup
+              value={locale}
+              onChange={(e) => setLocale(e.target.value)}
+            >
+              <FormControlLabel
+                control={<Radio />}
+                value='english'
+                label='English'
+              />
+              <FormControlLabel
+                control={<Radio />}
+                value='french'
+                label='French'
+              />
+              <FormControlLabel
+                control={<Radio />}
+                value='english-variant'
+                label='English variant'
+              />
+            </RadioGroup>
+          }
+        />
+        <FormControlLabel
+          label='Clear button action'
+          control={
+            <RadioGroup
+              value={clearButtonAction}
+              onChange={(e) => setClearButtonAction(e.target.value)}
+            >
+              <FormControlLabel
+                control={<Radio />}
+                value='empty'
+                label='Empty'
+              />
+              <FormControlLabel
+                control={<Radio />}
+                value='fill-with-every'
+                label='Fill with every'
+              />
+            </RadioGroup>
+          }
+        />
+        <FormControlLabel
+          label='Empty value management *'
+          control={
+            <RadioGroup
+              value={allowEmpty}
+              onChange={(e) => setAllowEmpty(e.target.value)}
+            >
+              <FormControlLabel
+                control={<Radio />}
+                value='for-default-value'
+                label='For default value'
+              ></FormControlLabel>
+              <FormControlLabel
+                control={<Radio />}
+                value='always'
+                label='Always'
+              />
+              <FormControlLabel
+                control={<Radio />}
+                value='never'
+                label='Never'
+              />
+            </RadioGroup>
+          }
+        />
+        <FormControlLabel
+          label='Default value *'
+          control={
+            <Input
+              value={defaultValue}
+              onChange={(e: any) => setDefaultValue(e.target.value)}
+            />
+          }
+        />
+        <FormControlLabel
+          label='Default period **'
+          control={
+            <RadioGroup
+              value={defaultPeriod}
+              onChange={(e) => setDefaultPeriod(e.target.value)}
+            >
+              <FormControlLabel control={<Radio />} value='year' label='Year' />
+              <FormControlLabel
+                control={<Radio />}
+                value='month'
+                label='Month'
+              />
+              <FormControlLabel control={<Radio />} value='week' label='Week' />
+              <FormControlLabel control={<Radio />} value='day' label='Day' />
+              <FormControlLabel control={<Radio />} value='hour' label='Hour' />
+              <FormControlLabel
+                control={<Radio />}
+                value='minute'
+                label='Minute'
+              />
+              <FormControlLabel
+                control={<Radio />}
+                value='reboot'
+                label='Reboot'
+              />
+            </RadioGroup>
+          }
+        />
         <p>(*) Need to reset the component to see the changes</p>
         <p>
           (**) Need to reset the component and to have an empty default value to
@@ -353,11 +470,11 @@ export function DynamicSettings() {
       {displayInput && (
         <>
           <Input
-
             readOnly={readOnlyInput}
             onChange={(event: any) => {
               changeValueonChange && setValue(event.target.value)
-            }} />
+            }}
+          />
 
           <DividerWithText>OR</DividerWithText>
         </>
@@ -383,7 +500,6 @@ export function DynamicSettings() {
         leadingZero={leadingZero}
         className={customStyle ? 'my-project-cron' : undefined}
         locale={transformedLocale}
-
       />
 
       {displayErrorText && (
@@ -396,7 +512,7 @@ export function DynamicSettings() {
 }
 
 export function LocalInput() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = ''
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -410,7 +526,6 @@ export function LocalInput() {
   return (
     <div>
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -439,7 +554,7 @@ export function LocalInput() {
 }
 
 export function InputWithOnEnter() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '0 10 * * 1,3,5'
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -453,12 +568,9 @@ export function InputWithOnEnter() {
   return (
     <div>
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
-
-
       />
 
       <div style={{ marginTop: 10 }}>
@@ -542,7 +654,10 @@ export function DefaultPeriod() {
 
 export function PeriodsToDisplay() {
   const defaultValue = ''
-  const [periodsToDisplay, setPeriodsToDisplay] = useState<string[]>(['week', 'day'])
+  const [periodsToDisplay, setPeriodsToDisplay] = useState<string[]>([
+    'week',
+    'day',
+  ])
   const [value, setValue] = useState(defaultValue)
   const [key, setKey] = useState('render-periods-to-display-example')
 
@@ -553,18 +668,23 @@ export function PeriodsToDisplay() {
   return (
     <div>
       <div style={{ marginBottom: 30 }}>
-        <p>You can select only specific periods to be displayed in the dropdown to restrict the options.</p>
+        <p>
+          You can select only specific periods to be displayed in the dropdown
+          to restrict the options.
+        </p>
       </div>
 
       <div>
         <FormControl style={{ minWidth: 250, maxWidth: 500 }}>
-          <InputLabel id="periods-to-display-label">Periods to Display</InputLabel>
+          <InputLabel id='periods-to-display-label'>
+            Periods to Display
+          </InputLabel>
           <Select
-            labelId="periods-to-display-label"
-            id="periods-to-display"
+            labelId='periods-to-display-label'
+            id='periods-to-display'
             multiple
             value={periodsToDisplay}
-            onChange={event => {
+            onChange={(event) => {
               let selectedPeriods = event.target.value as string[]
 
               if (selectedPeriods.length === 0) {
@@ -579,7 +699,7 @@ export function PeriodsToDisplay() {
             input={<Input />}
             renderValue={(selected: string[]) => selected.join(', ')}
           >
-            {ALL_PERIODS.map(period => (
+            {ALL_PERIODS.map((period) => (
               <MenuItem key={period} value={period}>
                 <Checkbox checked={periodsToDisplay.indexOf(period) > -1} />
                 <ListItemText primary={period} />
@@ -595,16 +715,20 @@ export function PeriodsToDisplay() {
         key={key}
         value={value}
         setValue={setValue}
-        clearButtonAction="empty"
+        clearButtonAction='empty'
         periodsToDisplay={periodsToDisplay}
       />
 
       <div>
         <InfoIcon style={{ marginRight: 5 }} />
         <span style={{ fontSize: 12 }}>
-          If not set, the prop &quot;periodsToDisplay&quot; is {JSON.stringify(ALL_PERIODS)}
+          If not set, the prop &quot;periodsToDisplay&quot; is{' '}
+          {JSON.stringify(ALL_PERIODS)}
           <span style={{ marginLeft: 5 }}>
-            <i>(&quot;reboot&quot; option will apply only when &quot;@reboot&quot; is listed in shortcuts list.)</i>
+            <i>
+              (&quot;reboot&quot; option will apply only when
+              &quot;@reboot&quot; is listed in shortcuts list.)
+            </i>
           </span>
         </span>
       </div>
@@ -615,7 +739,11 @@ export function PeriodsToDisplay() {
 export function AllowMultipleSelectFor() {
   const allFields = ['months', 'month-days', 'week-days', 'hours', 'minutes']
   const defaultValue = ''
-  const [allowMultipleSelectFor, setAllowMultipleSelectFor] = useState(['months', 'month-days', 'week-days'])
+  const [allowMultipleSelectFor, setAllowMultipleSelectFor] = useState([
+    'months',
+    'month-days',
+    'week-days',
+  ])
   const [value, setValue] = useState(defaultValue)
   const [key, setKey] = useState('render-periods-to-display-example')
 
@@ -626,18 +754,23 @@ export function AllowMultipleSelectFor() {
   return (
     <div>
       <div style={{ marginBottom: 30 }}>
-        <p>You can define specific fields in the component to accept multiple values.</p>
+        <p>
+          You can define specific fields in the component to accept multiple
+          values.
+        </p>
       </div>
 
       <div>
         <FormControl style={{ minWidth: 250, maxWidth: 500 }}>
-          <InputLabel id="allow-multiple-select-for-label">Allow multiple select for</InputLabel>
+          <InputLabel id='allow-multiple-select-for-label'>
+            Allow multiple select for
+          </InputLabel>
           <Select
-            labelId="allow-multiple-select-for-label"
-            id="allow-multiple-select-for"
+            labelId='allow-multiple-select-for-label'
+            id='allow-multiple-select-for'
             multiple
             value={allowMultipleSelectFor}
-            onChange={event => {
+            onChange={(event) => {
               setAllowMultipleSelectFor(event.target.value as string[])
               setValue(defaultValue)
               resetCronComponent()
@@ -645,9 +778,11 @@ export function AllowMultipleSelectFor() {
             input={<Input />}
             renderValue={(selected: string[]) => selected.join(', ')}
           >
-            {allFields.map(field => (
+            {allFields.map((field) => (
               <MenuItem key={field} value={field}>
-                <Checkbox checked={allowMultipleSelectFor.indexOf(field) > -1} />
+                <Checkbox
+                  checked={allowMultipleSelectFor.indexOf(field) > -1}
+                />
                 <ListItemText primary={field} />
               </MenuItem>
             ))}
@@ -662,14 +797,15 @@ export function AllowMultipleSelectFor() {
         leadingZero
         value={value}
         setValue={setValue}
-        clearButtonAction="empty"
+        clearButtonAction='empty'
         allowMultipleSelectFor={allowMultipleSelectFor}
       />
 
       <div>
         <InfoIcon style={{ marginRight: 5 }} />
         <span style={{ fontSize: 12 }}>
-          If not set, the prop &quot;allowMultipleSelectFor&quot; is {JSON.stringify(allFields)}
+          If not set, the prop &quot;allowMultipleSelectFor&quot; is{' '}
+          {JSON.stringify(allFields)}
         </span>
       </div>
     </div>
@@ -685,15 +821,24 @@ export function UseCronIntervals() {
     <div>
       <div style={{ marginBottom: 30 }}>
         <p>Controls whether to use cron intervals syntax.</p>
-        <p>Example: when <code>useCronIntervals=&#123;true&#125;</code>, a cron expression like &quot;<b>0 8 * * 1,3,5</b>&quot; (<i>&quot;At 08:00 AM, only on Monday, Wednesday, and Friday&quot;</i>)
-          would be changed to &quot;<b>0 8 * * 1-5/2</b>&quot; (<i>&quot;At 08:00 AM, every 2 days of the week, Monday through Friday&quot;</i>)</p>
+        <p>
+          Example: when <code>useCronIntervals=&#123;true&#125;</code>, a cron
+          expression like &quot;<b>0 8 * * 1,3,5</b>&quot; (
+          <i>&quot;At 08:00 AM, only on Monday, Wednesday, and Friday&quot;</i>)
+          would be changed to &quot;<b>0 8 * * 1-5/2</b>&quot; (
+          <i>
+            &quot;At 08:00 AM, every 2 days of the week, Monday through
+            Friday&quot;
+          </i>
+          )
+        </p>
       </div>
 
       <p>
         Use cron intervals:
         <Switch
           checked={useCronIntervals}
-          onChange={event => {
+          onChange={(event) => {
             setUseCronIntervals(event.target.checked)
           }}
         />
@@ -705,8 +850,8 @@ export function UseCronIntervals() {
         leadingZero
         value={value}
         setValue={setValue}
-        clearButtonAction="empty"
-        clockFormat="12-hour-clock"
+        clearButtonAction='empty'
+        clockFormat='12-hour-clock'
         useCronIntervals={useCronIntervals}
       />
 
@@ -765,7 +910,7 @@ export function ReadOnly() {
 }
 
 export function HumanizeLabels() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '* * * * MON-WED,sat'
   const [value, setValue] = useState(defaultValue)
   const [error, onError] = useState<CronError>()
@@ -785,7 +930,6 @@ export function HumanizeLabels() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -826,7 +970,7 @@ export function HumanizeLabels() {
 }
 
 export function HumanizeValue() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '* * * * MON-WED,sat'
   const [value, setValue] = useState(defaultValue)
   const [error, onError] = useState<CronError>()
@@ -847,7 +991,6 @@ export function HumanizeValue() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -907,7 +1050,7 @@ export function HumanizeValue() {
 }
 
 export function HumanizeLabelsAndValue() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '* * * * MON-WED,sat'
   const [value, setValue] = useState(defaultValue)
   const [error, onError] = useState<CronError>()
@@ -928,7 +1071,6 @@ export function HumanizeLabelsAndValue() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -960,7 +1102,7 @@ export function HumanizeLabelsAndValue() {
 }
 
 export function LeadingZero() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '5 3 2-3,8 * *'
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -977,7 +1119,6 @@ export function LeadingZero() {
       <p>Value: {value}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -1005,7 +1146,7 @@ export function LeadingZero() {
 }
 
 export function TrackError() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = ''
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -1023,7 +1164,6 @@ export function TrackError() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -1053,7 +1193,7 @@ export function TrackError() {
 }
 
 export function DisableErrorStyle() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = ''
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -1071,7 +1211,6 @@ export function DisableErrorStyle() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -1155,7 +1294,7 @@ export function InvalidDefaultValue() {
 }
 
 export function EmptyNeverAllowed() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = ''
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -1175,7 +1314,6 @@ export function EmptyNeverAllowed() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -1202,7 +1340,7 @@ export function EmptyNeverAllowed() {
 }
 
 export function EmptyAlwaysAllowed() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = ''
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -1222,7 +1360,6 @@ export function EmptyAlwaysAllowed() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -1249,7 +1386,7 @@ export function EmptyAlwaysAllowed() {
 }
 
 export function Shortcuts() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '@monthly'
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -1323,7 +1460,6 @@ export function Shortcuts() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -1353,28 +1489,26 @@ export function Shortcuts() {
         </span>
       </div>
 
-
-      <Typography variant="h6" id="tableTitle" component="div">
+      <Typography variant='h6' id='tableTitle' component='div'>
         Supported shortcuts
-        </Typography>
-      <Table
-
-        style={{ marginTop: 20 }}
-      >
+      </Typography>
+      <Table style={{ marginTop: 20 }}>
         <TableHead>
           <TableRow>
             {columns.map((obj) => {
-              return (<TableCell key={obj.key}>{obj.dataIndex}</TableCell>)
+              return <TableCell key={obj.key}>{obj.dataIndex}</TableCell>
             })}
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map(({ key, name, description, value }) => {
-            return (<TableRow key={key}>
-              <TableCell>{name}</TableCell>
-              <TableCell>{description}</TableCell>
-              <TableCell>{value}</TableCell>
-            </TableRow>)
+            return (
+              <TableRow key={key}>
+                <TableCell>{name}</TableCell>
+                <TableCell>{description}</TableCell>
+                <TableCell>{value}</TableCell>
+              </TableRow>
+            )
           })}
         </TableBody>
       </Table>
@@ -1383,7 +1517,7 @@ export function Shortcuts() {
 }
 
 export function TwelveHourClock() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '2 5,7,18 * * SUN'
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -1403,7 +1537,6 @@ export function TwelveHourClock() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -1422,7 +1555,7 @@ export function TwelveHourClock() {
 }
 
 export function TwentyFourHourClock() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '2 5,7,18 * * SUN'
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -1442,7 +1575,6 @@ export function TwentyFourHourClock() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -1469,7 +1601,7 @@ export function TwentyFourHourClock() {
 }
 
 export function FrenchLocale() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '* * 1-2 2,8 1,3,6'
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -1489,7 +1621,6 @@ export function FrenchLocale() {
       <p>Value: {value}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}
@@ -1572,7 +1703,7 @@ export function NoPrefixAndSuffix() {
 }
 
 export function CustomStyle() {
-  const inputRef = useRef<string>()
+  const inputRef = useRef<string>('')
   const defaultValue = '30 14 22 * *'
   const [value, setValue] = useState(defaultValue)
   const customSetValue = useCallback(
@@ -1591,7 +1722,6 @@ export function CustomStyle() {
       <p>Error: {error ? error.description : 'undefined'}</p>
 
       <Input
-
         onChange={(event: any) => {
           setValue(event.target.value)
         }}

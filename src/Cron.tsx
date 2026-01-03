@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '@mui/material'
 import { CronProps, PeriodType } from './types'
 import Period, { ALL_PERIODS } from './fields/Period'
@@ -9,7 +9,7 @@ import Minutes from './fields/Minutes'
 import WeekDays from './fields/WeekDays'
 import { classNames, setError, usePrevious } from './utils'
 import { DEFAULT_LOCALE_EN } from './locale'
-import { setValuesFromCronString, getCronStringFromValues } from './converter'
+import { getCronStringFromValues, setValuesFromCronString } from './converter'
 
 import './styles.css'
 
@@ -136,7 +136,7 @@ export default function Cron(props: CronProps) {
           hours,
           minutes,
           humanizeValue,
-          useCronIntervals,
+          useCronIntervals
         )
 
         setValue(cron)
@@ -226,10 +226,8 @@ export default function Cron(props: CronProps) {
     [className, error, displayError, disabled, readOnly]
   )
 
-  const {
-    className: clearButtonClassNameProp,
-    ...otherClearButtonProps
-  } = clearButtonProps
+  const { className: clearButtonClassNameProp, ...otherClearButtonProps } =
+    clearButtonProps
   const clearButtonClassName = useMemo(
     () =>
       classNames({
@@ -246,7 +244,7 @@ export default function Cron(props: CronProps) {
       if (clearButton && !readOnly) {
         return (
           <Button
-          style={{marginLeft:'10px'}}
+            style={{ marginLeft: '10px' }}
             className={clearButtonClassName}
             variant='contained'
             color='secondary'
@@ -291,98 +289,98 @@ export default function Cron(props: CronProps) {
       {periodForRender === 'reboot' ? (
         clearButtonNode
       ) : (
-          <>
-            {periodForRender === 'year' && (
-              <Months
-                value={months}
-                setValue={setMonths}
-                locale={locale}
-                className={className}
-                humanizeLabels={humanizeLabels}
-                disabled={disabled}
-                readOnly={readOnly}
-                period={periodForRender}
-                useCronIntervals={useCronIntervals}
-                multiple={allowMultipleSelectFor.includes('months')}
-                {...selectProps}
-              />
-            )}
+        <>
+          {periodForRender === 'year' && (
+            <Months
+              value={months}
+              setValue={setMonths}
+              locale={locale}
+              className={className}
+              humanizeLabels={humanizeLabels}
+              disabled={disabled}
+              readOnly={readOnly}
+              period={periodForRender}
+              useCronIntervals={useCronIntervals}
+              multiple={allowMultipleSelectFor.includes('months')}
+              {...selectProps}
+            />
+          )}
 
-            {(periodForRender === 'year' || periodForRender === 'month') && (
-              <MonthDays
-                value={monthDays}
-                setValue={setMonthDays}
+          {(periodForRender === 'year' || periodForRender === 'month') && (
+            <MonthDays
+              value={monthDays}
+              setValue={setMonthDays}
+              locale={locale}
+              className={className}
+              weekDays={weekDays}
+              disabled={disabled}
+              readOnly={readOnly}
+              leadingZero={leadingZero}
+              period={periodForRender}
+              useCronIntervals={useCronIntervals}
+              multiple={allowMultipleSelectFor.includes('month-days')}
+              {...selectProps}
+            />
+          )}
+
+          {(periodForRender === 'year' ||
+            periodForRender === 'month' ||
+            periodForRender === 'week') && (
+            <WeekDays
+              value={weekDays}
+              setValue={setWeekDays}
+              locale={locale}
+              className={className}
+              humanizeLabels={humanizeLabels}
+              monthDays={monthDays}
+              disabled={disabled}
+              readOnly={readOnly}
+              period={periodForRender}
+              useCronIntervals={useCronIntervals}
+              multiple={allowMultipleSelectFor.includes('week-days')}
+              {...selectProps}
+            />
+          )}
+
+          <div>
+            {periodForRender !== 'minute' && periodForRender !== 'hour' && (
+              <Hours
+                value={hours}
+                setValue={setHours}
                 locale={locale}
                 className={className}
-                weekDays={weekDays}
                 disabled={disabled}
                 readOnly={readOnly}
                 leadingZero={leadingZero}
+                clockFormat={clockFormat}
                 period={periodForRender}
                 useCronIntervals={useCronIntervals}
-                multiple={allowMultipleSelectFor.includes('month-days')}
+                multiple={allowMultipleSelectFor.includes('hours')}
                 {...selectProps}
               />
             )}
 
-            {(periodForRender === 'year' ||
-              periodForRender === 'month' ||
-              periodForRender === 'week') && (
-                <WeekDays
-                  value={weekDays}
-                  setValue={setWeekDays}
-                  locale={locale}
-                  className={className}
-                  humanizeLabels={humanizeLabels}
-                  monthDays={monthDays}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  period={periodForRender}
-                  useCronIntervals={useCronIntervals}
-                  multiple={allowMultipleSelectFor.includes('week-days')}
-                  {...selectProps}
-                />
-              )}
+            {periodForRender !== 'minute' && (
+              <Minutes
+                value={minutes}
+                setValue={setMinutes}
+                locale={locale}
+                period={periodForRender}
+                className={className}
+                disabled={disabled}
+                readOnly={readOnly}
+                leadingZero={leadingZero}
+                clockFormat={clockFormat}
+                useCronIntervals={useCronIntervals}
+                multiple={allowMultipleSelectFor.includes('minutes')}
+                {...selectProps}
+              />
+            )}
 
-            <div>
-              {periodForRender !== 'minute' && periodForRender !== 'hour' && (
-                <Hours
-                  value={hours}
-                  setValue={setHours}
-                  locale={locale}
-                  className={className}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  leadingZero={leadingZero}
-                  clockFormat={clockFormat}
-                  period={periodForRender}
-                  useCronIntervals={useCronIntervals}
-                  multiple={allowMultipleSelectFor.includes('hours')}
-                  {...selectProps}
-                />
-              )}
-
-              {periodForRender !== 'minute' && (
-                <Minutes
-                  value={minutes}
-                  setValue={setMinutes}
-                  locale={locale}
-                  period={periodForRender}
-                  className={className}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  leadingZero={leadingZero}
-                  clockFormat={clockFormat}
-                  useCronIntervals={useCronIntervals}
-                  multiple={allowMultipleSelectFor.includes('minutes')}
-                  {...selectProps}
-                />
-              )}
-
-              {clearButtonNode}
-            </div>
-          </>
-        )}
+            {clearButtonNode}
+          </div>
+        </>
+      )}
     </div>
   )
 }

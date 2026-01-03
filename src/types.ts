@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
-import {ButtonProps,SelectProps} from '@mui/material'
+import { ButtonProps, SelectProps } from '@mui/material'
+
 // External props
 
 export interface CronProps {
@@ -127,7 +128,6 @@ export interface CronProps {
    * Default: true
    */
   clearButton?: boolean
-
 
   clearButtonProps?: ClearButtonProps
 
@@ -257,8 +257,10 @@ export interface FieldProps {
   period: PeriodType
   multiple: boolean
 }
-export interface PeriodProps
-  extends Omit<FieldProps, 'value' | 'setValue' | 'period' | 'useCronIntervals' | 'multiple'> {
+export interface PeriodProps extends Omit<
+  FieldProps,
+  'value' | 'setValue' | 'period' | 'useCronIntervals' | 'multiple'
+> {
   value: PeriodType
   setValue: SetValuePeriod
   shortcuts: Shortcuts
@@ -283,25 +285,24 @@ export interface MinutesProps extends FieldProps {
   leadingZero: LeadingZero
   clockFormat?: ClockFormat
 }
-export interface CustomSelectProps
-  extends Omit<
-    SelectProps,
-    | 'mode'
-    | 'tokenSeparators'
-    | 'allowClear'
-    | 'virtual'
-    | 'onClick'
-    | 'onBlur'
-    | 'tagRender'
-    | 'dropdownRender'
-    | 'showSearch'
-    | 'showArrow'
-    | 'onChange'
-    | 'dropdownMatchSelectWidth'
-    | 'options'
-    | 'onSelect'
-    | 'onDeselect'
-  > {
+export interface CustomSelectProps extends Omit<
+  SelectProps,
+  | 'mode'
+  | 'tokenSeparators'
+  | 'allowClear'
+  | 'virtual'
+  | 'onClick'
+  | 'onBlur'
+  | 'tagRender'
+  | 'dropdownRender'
+  | 'showSearch'
+  | 'showArrow'
+  | 'onChange'
+  | 'dropdownMatchSelectWidth'
+  | 'options'
+  | 'onSelect'
+  | 'onDeselect'
+> {
   grid?: boolean
   setValue: SetValueNumbersOrUndefined
   optionsList?: string[]

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { Select, MenuItem } from '@mui/material'
+import { MenuItem, Select } from '@mui/material'
 
 import { PeriodProps, PeriodType } from '../types'
 import { DEFAULT_LOCALE_EN } from '../locale'
@@ -76,13 +76,11 @@ export default function Period(props: PeriodProps) {
   ])
 
   const selectedPeriodOptions = useMemo(() => {
-    return options.filter(
-      option => periodsToDisplay.includes(option.value)
-    );
+    return options.filter((option) => periodsToDisplay.includes(option.value))
   }, [options, periodsToDisplay])
 
   const handleChange = useCallback(
-    (event) => {
+    (event: { target: { value: React.SetStateAction<string> } }) => {
       if (!readOnly) {
         setValue(event.target.value)
       }

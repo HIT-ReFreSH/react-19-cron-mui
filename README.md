@@ -1,5 +1,7 @@
 ## React 19 Cron MUI
-> This package is based on Itay Levy (https://github.com/levyitay/)'s react-js-cron-mui fork and the original Xavier Rutayisire package (https://github.com/xrutayisire/react-js-cron). Most if not all of the credit should go to them.
+
+> This package is based on Itay Levy (https://github.com/levyitay/)'s react-js-cron-mui fork and the original Xavier
+> Rutayisire package (https://github.com/xrutayisire/react-js-cron). Most if not all of the credit should go to them.
 > A React cron editor built with MUI v6.
 
 [![npm package](https://img.shields.io/npm/v/react-19-cron-mui/latest.svg)](https://www.npmjs.com/package/react-19-cron-mui)
@@ -29,6 +31,7 @@ Live **demo** and **usage** (upstream): https://levyitay.github.io/react-js-cron
 ## Installation
 
 Be sure that you have these dependencies on your project:
+
 * react (>=19.0.0)
 * react-dom (>=19.0.0)
 * @mui/material (>=6.4.4)
@@ -49,7 +52,9 @@ react-19-cron-mui is written in TypeScript with complete definitions
 
 ## Usage
 
-Learn more with [dynamic settings](https://levyitay.github.io/react-js-cron-mui/?path=/story/reactjs-cron--dynamic-settings) (upstream).
+Learn more
+with [dynamic settings](https://levyitay.github.io/react-js-cron-mui/?path=/story/reactjs-cron--dynamic-settings) (
+upstream).
 
 - [Two-way sync binding with input](https://levyitay.github.io/react-js-cron-mui/?path=/story/reactjs-cron--input)
 - [Default value](https://levyitay.github.io/react-js-cron-mui/?path=/story/reactjs-cron--default-value)

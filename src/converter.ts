@@ -1,19 +1,19 @@
 import { MutableRefObject } from 'react'
 
-import { UNITS, SUPPORTED_SHORTCUTS } from './constants'
-import { range, sort, dedup, setError } from './utils'
+import { SUPPORTED_SHORTCUTS, UNITS } from './constants'
+import { dedup, range, setError, sort } from './utils'
 import {
-  Unit,
-  PeriodType,
-  LeadingZero,
-  ClockFormat,
-  SetInternalError,
-  OnError,
   AllowEmpty,
+  ClockFormat,
+  LeadingZero,
   Locale,
-  Shortcuts,
+  OnError,
+  PeriodType,
+  SetInternalError,
   SetValueNumbersOrUndefined,
   SetValuePeriod,
+  Shortcuts,
+  Unit,
 } from './types'
 
 /**
@@ -107,7 +107,7 @@ export function getCronStringFromValues(
   hours: number[] | undefined,
   minutes: number[] | undefined,
   humanizeValue?: boolean,
-  useCronIntervals?: boolean,
+  useCronIntervals?: boolean
 ) {
   if (period === 'reboot') {
     return '@reboot'
@@ -127,7 +127,7 @@ export function getCronStringFromValues(
   const parsedArray = parseCronArray(
     [newMinutes, newHours, newMonthDays, newMonths, newWeekDays],
     humanizeValue,
-    useCronIntervals,
+    useCronIntervals
   )
 
   return cronToString(parsedArray)
@@ -236,7 +236,11 @@ export function formatValue(
 /**
  * Parses a 2-dimentional array of integers as a cron schedule
  */
-function parseCronArray(cronArr: number[][], humanizeValue?: boolean, useCronIntervals?: boolean) {
+function parseCronArray(
+  cronArr: number[][],
+  humanizeValue?: boolean,
+  useCronIntervals?: boolean
+) {
   if (cronArr.length === 5) {
     return cronArr.map((partArr, idx) => {
       const unit = UNITS[idx]

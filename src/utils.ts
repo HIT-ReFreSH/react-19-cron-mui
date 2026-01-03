@@ -1,6 +1,6 @@
-import { useRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
-import { Classes, OnError, Locale } from './types'
+import { Classes, Locale, OnError } from './types'
 import { DEFAULT_LOCALE_EN } from './locale'
 
 /**

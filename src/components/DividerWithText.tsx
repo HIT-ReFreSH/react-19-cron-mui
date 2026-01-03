@@ -1,22 +1,22 @@
-import React from "react";
-import { Box } from "@mui/material";
+import React from 'react'
+import { Box } from '@mui/material'
 
 const DividerWithText = ({ children }: any) => {
   return (
     <Box
       sx={{
-        display: "flex",
-        alignItems: "center"
+        display: 'flex',
+        alignItems: 'center',
       }}
     >
       <Box
         sx={{
-          borderBottom: "2px solid lightgray",
-          width: "100%"
+          borderBottom: '2px solid lightgray',
+          width: '100%',
         }}
       />
       <Box
-        component="span"
+        component='span'
         sx={{
           paddingTop: 0.5,
           paddingBottom: 0.5,
@@ -24,18 +24,18 @@ const DividerWithText = ({ children }: any) => {
           paddingLeft: 2,
           fontWeight: 500,
           fontSize: 22,
-          color: "lightgray"
+          color: 'lightgray',
         }}
       >
         {children}
       </Box>
       <Box
         sx={{
-          borderBottom: "2px solid lightgray",
-          width: "100%"
+          borderBottom: '2px solid lightgray',
+          width: '100%',
         }}
       />
     </Box>
-  );
-};
-export default DividerWithText;
+  )
+}
+export default DividerWithText

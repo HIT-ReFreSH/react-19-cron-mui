@@ -1,10 +1,10 @@
-import React, { useMemo, useCallback } from 'react'
-import { Select, MenuItem } from '@mui/material'
+import React, { useCallback, useMemo } from 'react'
+import { MenuItem, Select } from '@mui/material'
 
 import { CustomSelectProps } from '../types'
 import { DEFAULT_LOCALE_EN } from '../locale'
 import { classNames, sort } from '../utils'
-import { parsePartArray, partToString, formatValue } from '../converter'
+import { formatValue, parsePartArray, partToString } from '../converter'
 
 export default function CustomSelect(props: CustomSelectProps) {
   const {
@@ -65,7 +65,7 @@ export default function CustomSelect(props: CustomSelectProps) {
   )
   const localeJSON = JSON.stringify(locale)
   const renderTag = useCallback(
-    (props) => {
+    (props: any) => {
       const value = props
 
       if (!value || isNaN(Number(value[0]))) {
@@ -98,12 +98,12 @@ export default function CustomSelect(props: CustomSelectProps) {
 
   const simpleClick = useCallback(
     (event: any) => {
-      let newValueOption: number[] = event.target.value;
-      let newValue: number[];
+      let newValueOption: number[] = event.target.value
+      let newValue: number[]
 
       if (Array.isArray(newValueOption)) {
         if (newValueOption.length == 0) {
-          newValueOption.push(0);
+          newValueOption.push(0)
         }
 
         if (newValueOption.length > 0 && !multiple) {
